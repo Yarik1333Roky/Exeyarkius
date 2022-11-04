@@ -35,8 +35,8 @@ def load_opus_lib(opus_libs=OPUS_LIBS):
     try:
       opus.load_opus(opus_lib)
       return
-    expect OSError:
-      pass
+    #expect OSError:
+    #  pass
 
 async def queue_module(ctx, after:False):
     global can_playing

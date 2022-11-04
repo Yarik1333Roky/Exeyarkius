@@ -143,7 +143,7 @@ async def on_ready():
     for opus_lib in opus_libs:
       try:
         opus.load_opus(opus_lib)
-      expect OSError:
+      except OSError:
         print(f"OSError with {opus_lib}")
     print("Bot ready")
 

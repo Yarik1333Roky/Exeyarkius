@@ -27,16 +27,6 @@ can_playing = False
 repeatMusic = False
 
 OPUS_LIBS = ['libopus-0.x86.dll','libopus-0.x64.dll','libopus-0.dll','libopus.so.0','libopus.0.dylib']
-def load_opus_lib(opus_libs=OPUS_LIBS):
-  if opus.is_loaded():
-    return True
-  
-  for opus_lib in opus_libs:
-    try:
-      opus.load_opus(opus_lib)
-      return
-    #expect OSError:
-    #  pass
 
 async def queue_module(ctx, after:False):
     global can_playing
@@ -134,7 +124,18 @@ async def queue_module(ctx, after:False):
                 queues.remove(my_data)
 
             can_playing=False  
-            await queue_module(ctx, False)          
+            await queue_module(ctx, False)   
+            
+def load_opus_lib(opus_libs=OPUS_LIBS):
+  if opus.is_loaded():
+    return True
+  
+  for opus_lib in opus_libs:
+    try:
+      opus.load_opus(opus_lib)
+      return
+    #expect OSError:
+    #  pass            
 
 @bot.event
 async def on_ready():

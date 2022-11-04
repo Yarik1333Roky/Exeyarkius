@@ -126,22 +126,24 @@ async def queue_module(ctx, after:False):
             can_playing=False  
             await queue_module(ctx, False)   
             
-def load_opus_lib(opus_libs=OPUS_LIBS):
-  if opus.is_loaded():
-    return True
+#def load_opus_lib(opus_libs=OPUS_LIBS):
+#  if opus.is_loaded():
+#    return True
   
-  for opus_lib in opus_libs:
-    try:
-      opus.load_opus(opus_lib)
-      #return
-    #expect OSError:
-    #  pass            
+#  for opus_lib in opus_libs:
+#    try:
+#     opus.load_opus(opus_lib)
+#      return
+#    expect OSError:
+#      pass            
 
 @bot.event
 async def on_ready():
-    print("Bot ready")
-    load_opus_lib()
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game("Узнай о мне - .info"))
+    for opus_lib in opus_libs:
+      try:
+        opus.load_opus(opus_lib)
+    print("Bot ready")
 
 @bot.command()
 async def info(ctx):

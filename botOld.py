@@ -4,6 +4,7 @@ import discord
 from discord.ui import Button, View
 from discord.ext import commands
 from discord.utils import get
+from discord import opus
 from youtube_dl import YoutubeDL
 import aiohttp
 import datetime
@@ -24,6 +25,20 @@ admins_role = []
 queues = []
 can_playing = False
 repeatMusic = False
+
+OPUS_LIBS = ['libopus-0.x86.dll','libopus-0.x64.dll','libopus-0.dll','libopus.so.0','libopus.0.dylib']
+def load_opus_lib(opus_libs=OPUS_LIBS):
+  if opus.is_loaded():
+    return True
+  
+  for opus_lib in opus_libs:
+    try:
+      opus.load_opus(opus_lib)
+      return
+    expect OSError:
+      pass
+    
+  raise RuntimeError('Could not load opus.')
 
 async def queue_module(ctx, after:False):
     global can_playing
@@ -126,6 +141,7 @@ async def queue_module(ctx, after:False):
 @bot.event
 async def on_ready():
     print("Bot ready")
+    load_opus_lib()
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game("Узнай о мне - .info"))
 
 @bot.command()

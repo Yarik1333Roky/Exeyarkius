@@ -26,7 +26,7 @@ queues = []
 can_playing = False
 repeatMusic = False
 
-OPUS_LIBS = ['libopus-0.x86.dll','libopus-0.x64.dll','libopus-0.dll','libopus.so.0','libopus.0.dylib']
+opus_libs = ['libopus-0.x86.dll','libopus-0.x64.dll','libopus-0.dll','libopus.so.0','libopus.0.dylib']
 
 async def queue_module(ctx, after:False):
     global can_playing
@@ -140,11 +140,16 @@ async def queue_module(ctx, after:False):
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game("Узнай о мне - .info"))
-    for opus_lib in opus_libs:
+    
+    if opus.is_loaded():
+      print("opus loaded")
+    else:
+      for opus_lib in opus_libs:
       try:
         opus.load_opus(opus_lib)
       except OSError:
         print(f"OSError with {opus_lib}")
+        
     print("Bot ready")
 
 @bot.command()

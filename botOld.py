@@ -322,7 +322,7 @@ async def say(ctx, *, args):
         voice = get(bot.voice_clients, guild = ctx.guild)
         tts.save("voice.mp3")
 
-        voice.play(discord.FFmpegPCMAudio("voice.mp3"))
+        voice.play("voice.mp3") #discord.FFmpegPCMAudio("voice.mp3")
     else:
         await ctx.send('Я не заметил чтоб ты был в голосовом канале')
 

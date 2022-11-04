@@ -44,7 +44,7 @@ async def queue_module(ctx, after:False):
             voice = get(bot.voice_clients, guild = ctx.guild)
  
             url = info['formats'][0]['url']
-            voice.play(discord.FFmpegPCMAudio(executable="ffmpeg\\ffmpeg.exe", source=url, **FFMPEG_OPTIONS))
+            voice.play(discord.FFmpegPCMAudio(url, **FFMPEG_OPTIONS))
             can_playing=True
         
             realDuration = str(datetime.timedelta(seconds=info["duration"]))

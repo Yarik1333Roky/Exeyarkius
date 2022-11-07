@@ -48,8 +48,8 @@ async def queue_module(ctx, after:False):
  
             url = info['formats'][0]['url']
             
-            source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
-            voice.play(source) #executable="/Exeyarkius/blob/main/ffmpeg/ffmpeg.exe", source
+            sourceBruh = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
+            voice.play(sourceBruh) #executable="/Exeyarkius/blob/main/ffmpeg/ffmpeg.exe", source
             can_playing=True
         
             realDuration = str(datetime.timedelta(seconds=info["duration"]))
